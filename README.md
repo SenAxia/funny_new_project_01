@@ -1,2 +1,4 @@
 # funny_new_project_01
-My first funny project
+Create a sand generator by mouse left click on a SFML Window
+
+# Just Compile and run the binary sander.
