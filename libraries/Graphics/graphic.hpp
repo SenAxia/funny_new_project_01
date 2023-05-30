@@ -32,18 +32,18 @@
     class graphic {
         public:
         RenderWindow window = RenderWindow(VideoMode(1000,800),"Sander");
-        // vector<Vector2i> coordPoses;
+        vector<Vector2i> coord_poses_list;
         draw pixels;
         RectangleShape dots;
 
         graphic () {}
         ~graphic () {}
 
-        void drawPixels(vector<Vector2i> coords, RenderWindow& window) {
+        void drawPixels(vector<Vector2i> coords) {
             for (auto pixels_coords : coords) {
-                dots.setSize({1, 1});
+                dots.setSize({2, 2});
                 dots.setPosition(Vector2f(pixels_coords.x, pixels_coords.y));
-                dots.setFillColor(Color::Red);
+                dots.setFillColor(Color::Yellow);
                 window.draw(dots);
             }
         }
@@ -53,18 +53,17 @@
                 Event e;
                 while (window.pollEvent(e)) {
                     if (Mouse::isButtonPressed(Mouse::Left)) {
-                        Vector2i coordPoses = Mouse::getPosition(window);
-                        dots.setSize({1, 1});
-                        dots.setPosition(Vector2f(coordPoses.x, coordPoses.y));
-                        dots.setFillColor(Color::Red);
-                        window.draw(dots);
+                        Vector2i coord_poses = Mouse::getPosition(window);
+                        coord_poses_list.push_back(coord_poses);
                     }
                     if (e.type == Event::Closed)
                         window.close();
                 }
+                drawPixels(coord_poses_list);
                 window.display();
+                window.clear();
             }
-            window.clear();
+            window.close();
         }
     };
 
